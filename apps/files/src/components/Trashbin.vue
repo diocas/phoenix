@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="files-list-container">
     <oc-table middle divider class="oc-filelist" id="files-list" v-show="!loadingFolder">
       <oc-table-group>
         <oc-table-row>
@@ -17,8 +17,10 @@
             <oc-checkbox class="uk-margin-small-left" @change.native="$_ocTrashbin_toggleFileSelect(item)" :value="selectedFiles.indexOf(item) >= 0" />
           </oc-table-cell>
           <oc-table-cell class="uk-text-truncate">
-            <oc-file :name="$_ocTrashbin_fileName(item)" :extension="item.extension" class="file-row-name"
+            <div>
+              <oc-file :name="$_ocTrashbin_fileName(item)" :extension="item.extension" class="file-row-name"
                     :filename="item.name" :icon="fileTypeIcon(item)" :key="item.originalLocation" />
+            </div>
           </oc-table-cell>
           <oc-table-cell class="uk-text-meta uk-text-nowrap">
             {{ formDateFromNow(item.deleteTimestamp) }}
