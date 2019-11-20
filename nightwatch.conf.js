@@ -67,6 +67,9 @@ module.exports = {
       globals: {
         waitForConditionTimeout: 20000,
         backend_url: 'http://owncloud',
+        default_backend: 'LOCAL',
+        local_backend_url: 'http://owncloud',
+        remote_backend_url: 'http://federated',
         backend_admin_username: 'admin',
         backend_admin_password: 'admin'
       },
