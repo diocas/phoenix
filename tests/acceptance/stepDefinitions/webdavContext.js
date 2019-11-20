@@ -34,6 +34,10 @@ Then('as {string} file/folder {string} should exist', function (userId, element)
   return fileExists(userId, element)
 })
 
+Then('as {string} file/folder {string} should exist on remote server', async function (userId, element) {
+  return httpHelper.runOnRemoteServer(fileExists, [userId, element])
+})
+
 Then('as {string} file/folder {string} should exist inside folder {string}', function (user, file, folder) {
   return fileExists(user, path.join(folder, file))
 })

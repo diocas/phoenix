@@ -10,9 +10,10 @@ const occHelper = require('../helpers/occHelper')
  *
  * @param {string} userId
  * @param {string} element
+ * @param {string} server - (REMOTE/LOCAL) server to use for dav path
  */
 exports.createDavPath = function (userId, element) {
-  return client.globals.backend_url +
+  return httpHelper.getCurrentBackendUrl() +
     '/remote.php/dav/files/' + userId + '/' + encodeURIComponent(element)
     .replace(/%2F/g, '/')
 }

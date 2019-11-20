@@ -18,9 +18,10 @@ function createUser (userId, password, displayName = false, email = false) {
   body.append('password', password)
   const promiseList = []
 
+  console.log(httpHelper.getCurrentBackendUrl())
   userSettings.addUserToCreatedUsersList(userId, password, displayName, email)
   const headers = httpHelper.createAuthHeader(client.globals.backend_admin_username)
-  return fetch(client.globals.backend_url + '/ocs/v2.php/cloud/users?format=json',
+  return fetch(httpHelper.getCurrentBackendUrl() + '/ocs/v2.php/cloud/users?format=json',
     { method: 'POST', body: body, headers: headers }
   )
     .then(() => {
@@ -29,7 +30,7 @@ function createUser (userId, password, displayName = false, email = false) {
           const body = new URLSearchParams()
           body.append('key', 'display')
           body.append('value', displayName)
-          fetch(`${client.globals.backend_url}/ocs/v2.php/cloud/users/${encodeURIComponent(userId)}?format=json`,
+          fetch(`${httpHelper.getCurrentBackendUrl()}/ocs/v2.php/cloud/users/${encodeURIComponent(userId)}?format=json`,
             { method: 'PUT', body: body, headers: headers }
           )
             .then(res => {
@@ -47,7 +48,7 @@ function createUser (userId, password, displayName = false, email = false) {
           const body = new URLSearchParams()
           body.append('key', 'email')
           body.append('value', email)
-          fetch(`${client.globals.backend_url}/ocs/v2.php/cloud/users/${encodeURIComponent(userId)}?format=json`,
+          fetch(`${httpHelper.getCurrentBackendUrl()}/ocs/v2.php/cloud/users/${encodeURIComponent(userId)}?format=json`,
             { method: 'PUT', body: body, headers: headers }
           )
             .then(res => {
@@ -67,12 +68,12 @@ function createUser (userId, password, displayName = false, email = false) {
 function deleteUser (userId) {
   const headers = httpHelper.createAuthHeader(client.globals.backend_admin_username)
   userSettings.deleteUserFromCreatedUsersList(userId)
-  return fetch(client.globals.backend_url + '/ocs/v2.php/cloud/users/' + userId, { method: 'DELETE', headers: headers })
+  return fetch(httpHelper.getCurrentBackendUrl() + '/ocs/v2.php/cloud/users/' + userId, { method: 'DELETE', headers: headers })
 }
 
 function initUser (userId) {
   const headers = httpHelper.createAuthHeader(userId)
-  return fetch(client.globals.backend_url + '/ocs/v2.php/cloud/users/' + userId, { method: 'GET', headers: headers })
+  return fetch(httpHelper.getCurrentBackendUrl() + '/ocs/v2.php/cloud/users/' + userId, { method: 'GET', headers: headers })
 }
 
 /**
@@ -117,6 +118,15 @@ Given('user {string} has been created with default attributes', function (userId
   return deleteUser(userId)
     .then(() => createDefaultUser(userId))
     .then(() => initUser(userId))
+})
+
+Given('user {string} has been created with default attributes on remote server', function (userId) {
+  return httpHelper.runOnRemoteServer(
+    async function () {
+      await deleteUser(userId)
+        .then(() => createDefaultUser(userId))
+        .then(() => initUser(userId))
+    })
 })
 
 Given('the quota of user {string} has been set to {string}', function (userId, quota) {

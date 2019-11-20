@@ -102,6 +102,12 @@ Given('the setting {string} of app {string} has been set to {string}', function 
     ])
 })
 
+Given('the setting {string} of app {string} has been set to {string} on remote server', async function (setting, app, value) {
+  return httpHelper.runOnRemoteServer(occHelper.runOcc, [[
+    'config:app:set', app, setting, '--value=' + value
+  ]])
+})
+
 Given('the administrator has cleared the versions for user {string}', function (userId) {
   return occHelper.runOcc(
     [

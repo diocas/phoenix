@@ -20,13 +20,13 @@ const path = require('../helpers/path')
  * @param {string} role
  * @param {string} permissions
  */
-const userSharesFileOrFolderWithUserOrGroup = function (file, sharee, shareWithGroup, role, permissions = undefined) {
+const userSharesFileOrFolderWithUserOrGroup = function (file, sharee, shareWithGroup, role, permissions = undefined, remote = false) {
   return client.page
     .FilesPageElement
     .filesList()
     .closeSidebar(100)
     .openSharingDialog(file)
-    .shareWithUserOrGroup(sharee, shareWithGroup, role, permissions)
+    .shareWithUserOrGroup(sharee, shareWithGroup, role, permissions, remote)
 }
 
 /**
@@ -45,9 +45,29 @@ const userSharesFileOrFolderWithUser = function (file, sharee, role) {
  * @param {string} sharee
  * @param {string} role
  */
+const userSharesFileOrFolderWithRemoteUser = function (file, sharee, role) {
+  return userSharesFileOrFolderWithUserOrGroup(file, sharee, false, role, undefined, true)
+}
+/**
+ *
+ * @param {string} file
+ * @param {string} sharee
+ * @param {string} role
+ */
 const userSharesFileOrFolderWithGroup = function (file, sharee, role) {
   return userSharesFileOrFolderWithUserOrGroup(file, sharee, true, role)
 }
+
+Given('user {string} from remote server has shared {string} with user {string} from local server', function (sharer, file, receiver) {
+  receiver = `${receiver}@${httpHelper.getBackendUrl('LOCAL').replace(/(^\w+:|^)\/\//, '')}/`
+  return httpHelper.runOnRemoteServer(shareFileFolder, [file, sharer, receiver, SHARE_TYPES.federated_cloud_share])
+})
+
+Given('user {string} from local server has shared {string} with user {string} from remote server', function (sharer, shareServer, file, receiver, receiverServer) {
+  receiver = `${receiver}@${httpHelper.getBackendUrl('REMOTE').replace(/(^\w+:|^)\/\//, '')}/`
+  return shareFileFolder(file, sharer, receiver, SHARE_TYPES.federated_cloud_share)
+})
+
 /**
  * creates a new share
  *
@@ -83,7 +103,7 @@ const shareFileFolder = function (
     }
   }
   return fetch(
-    client.globals.backend_url + '/ocs/v2.php/apps/files_sharing/api/v1/shares?format=json',
+    httpHelper.getCurrentBackendUrl() + '/ocs/v2.php/apps/files_sharing/api/v1/shares?format=json',
     { method: 'POST', headers: httpHelper.createAuthHeader(sharer), body: params }
   )
     .then(res => res.json())
@@ -463,6 +483,8 @@ Then('no custom permissions should be set for collaborator {string} for file/fol
 })
 
 When('the user shares file/folder/resource {string} with group {string} as {string} using the webUI', userSharesFileOrFolderWithGroup)
+
+When('the user shares file/folder/resource {string} with remote user {string} as {string} using the webUI', userSharesFileOrFolderWithRemoteUser)
 
 Then('it should not be possible to share file/folder {string} using the webUI', function (resource) {
   return client.page

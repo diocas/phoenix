@@ -9,13 +9,20 @@
  * @param {string} inputValue
  * @returns
  */
-exports.command = function setValueBySingleKeys (selector, inputValue) {
-  const chars = inputValue.split('')
+exports.command = async function setValueBySingleKeys (selector, inputValue) {
+  const chars = inputValue.split('').slice(0, -2)
+  const charsEnd = inputValue.split('').slice(-2)
   if (chars.length === 0) {
     return this.setValue(selector, '')
   }
-  return Promise.all(chars.map((char) => {
+  await Promise.all(chars.map((char) => {
     return this.setValue(selector, char)
+  })
+  )
+  // Sometimes the autocomplete list is not displayed when the characters are entered very fast
+  // So we add a small pause for entering the last two characters
+  return Promise.all(charsEnd.map((char) => {
+    return this.setValue(selector, char).pause(100)
   })
   )
 }
