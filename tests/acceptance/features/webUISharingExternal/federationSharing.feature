@@ -11,6 +11,7 @@ Feature: Federation Sharing - sharing with users on other cloud storages
     And user "user1" has been created with default attributes
     And user "user1" has logged in using the webUI
 
+  @skip
   Scenario: test the single steps of sharing a folder to a remote server
     When the user shares folder "simple-folder" with remote user "user1" as "Editor" using the webUI
     And the user shares folder "simple-empty-folder" with remote user "user1" as "Editor" using the webUI
