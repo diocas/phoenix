@@ -18,7 +18,6 @@ function createUser (userId, password, displayName = false, email = false) {
   body.append('password', password)
   const promiseList = []
 
-  console.log(httpHelper.getCurrentBackendUrl())
   userSettings.addUserToCreatedUsersList(userId, password, displayName, email)
   const headers = httpHelper.createAuthHeader(client.globals.backend_admin_username)
   return fetch(httpHelper.getCurrentBackendUrl() + '/ocs/v2.php/cloud/users?format=json',

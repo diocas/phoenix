@@ -28,10 +28,10 @@ Feature: Federation Sharing - sharing with users on other cloud storages
     And user "user3" from remote server has shared "lorem.txt" with user "user1" from local server
     And the user has reloaded the current page of the webUI
     Then the user should see 3 notifications on the webUI with these details
-      | title                                                               |
-      | "user1@http://172.17.0.1/fed" shared "simple-folder" with you       |
-      | "user2@http://172.17.0.1/fed" shared "simple-empty-folder" with you |
-      | "user3@http://172.17.0.1/fed" shared "lorem.txt" with you           |
+      | title                                                              |
+      | "user1@%remote_backend_url%" shared "simple-folder" with you       |
+      | "user2@%remote_backend_url%" shared "simple-empty-folder" with you |
+      | "user3@%remote_backend_url%" shared "lorem.txt" with you           |
     When the user accepts all shares displayed in the notifications on the webUI
     And the user reloads the current page of the webUI
     Then file "lorem (2).txt" should be listed on the webUI

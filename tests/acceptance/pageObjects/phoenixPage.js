@@ -1,5 +1,6 @@
 const assert = require('assert')
 const util = require('util')
+const userSettings = require('../helpers/userSettings')
 
 module.exports = {
   url: function () {
@@ -80,7 +81,7 @@ module.exports = {
       assert.strictEqual(notifications.length, numberOfNotifications)
       const promises = []
       for (const element of expectedNotifications) {
-        const isPresent = notifications.includes(element.title)
+        const isPresent = notifications.includes(userSettings.replaceInlineCode(element.title))
         promises.push(this.assert.ok(isPresent))
       }
       return Promise.all(promises)
@@ -114,7 +115,6 @@ module.exports = {
     declineAllSharesInNotification: async function () {
       const notifications = await this.getNotifications()
       for (const element of notifications) {
-        console.log(element)
         const declineShareButton = util.format(this.elements.declineSharesInNotifications.selector, element)
         await this
           .useXpath()

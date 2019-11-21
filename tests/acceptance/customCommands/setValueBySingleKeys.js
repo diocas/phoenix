@@ -16,13 +16,13 @@ exports.command = async function setValueBySingleKeys (selector, inputValue) {
     return this.setValue(selector, '')
   }
   await Promise.all(chars.map((char) => {
-    return this.setValue(selector, char)
+    this.setValue(selector, char)
   })
   )
   // Sometimes the autocomplete list is not displayed when the characters are entered very fast
   // So we add a small pause for entering the last two characters
   return Promise.all(charsEnd.map((char) => {
-    return this.setValue(selector, char).pause(100)
+    this.setValue(selector, char).pause(100)
   })
   )
 }

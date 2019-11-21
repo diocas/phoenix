@@ -1,3 +1,5 @@
+const { client } = require('nightwatch-api')
+
 const adminUsername = process.env.ADMIN_USERNAME || 'admin'
 const adminPassword = process.env.ADMIN_PASSWORD || 'admin'
 const regularUserPassword = process.env.REGULAR_USER_PASSWORD || '123456'
@@ -203,28 +205,24 @@ module.exports = {
   /**
    * Gets the password for the un-initialized users and replaces the password accordingly
    *
-   * @param {string} password
+   * @param {string} input
    * @returns {string}
    */
-  replaceInlineCode: function (password) {
-    if (password === '%regular%') {
-      return regularUserPassword
+  replaceInlineCode: function (input) {
+    const codes = {
+      '%regular%': 'reg',
+      '%alt1%': 'alt1',
+      '%alt2%': 'alt2',
+      '%alt3%': 'alt3',
+      '%alt4%': 'alt4',
+      '%alt11%': 'alt11',
+      '%remote_backend_url%': client.globals.remote_backend_url
     }
-    if (password === '%alt1%') {
-      return alt1UserPassword
+    for (const code in codes) {
+      if (input.includes(code)) {
+        input = input.replace(code, codes[code])
+      }
     }
-    if (password === '%alt2%') {
-      return alt2UserPassword
-    }
-    if (password === '%alt3') {
-      return alt3UserPassword
-    }
-    if (password === '%alt4%') {
-      return alt4UserPassword
-    }
-    if (password === '%alt11%') {
-      return alt11UserPassword
-    }
-    return password
+    return input
   }
 }
