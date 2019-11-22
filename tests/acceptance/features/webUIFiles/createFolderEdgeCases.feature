@@ -56,3 +56,19 @@ Feature: create folder
       | "0"                     |
       | "'single'quotes"        |
       | "strängé नेपाली folder" |
+
+  @issue-1883
+  Scenario: Select breadcrumb inside folder with problematic name
+    When the user creates a folder with the name "folder%2Fwith%2FSlashes" using the webUI
+    And the user opens folder "folder%2Fwith%2FSlashes" using the webUI
+    And the user browses to folder "folder%2Fwith%2FSlashes" using the breadcrumb on the webUI
+    Then the error message "Loading folder failed…" should be displayed on the webUI
+    # Then the error message should not be displayed on the webUI
+
+  @issue-1883
+  Scenario: Reload webUI inside the problamatic folder
+    When the user creates a folder with the name "folder%2Fwith%2FSlashes" using the webUI
+    And the user opens folder "folder%2Fwith%2FSlashes" using the webUI
+    And the user reloads the current page of the webUI
+    Then the error message "Loading folder failed…" should be displayed on the webUI
+    # Then the error message should not be displayed on the webUI

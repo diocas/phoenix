@@ -29,6 +29,18 @@ module.exports = {
         .assert.containsText('@breadcrumb', folder)
     },
     /**
+     *
+     * @param {string} resource
+     */
+    navigateToBreadcrumb: async function (resource) {
+      const resourceXpath = util.format(this.elements.resourceBreadcrumb.selector, resource)
+      return this
+        .useXpath()
+        .waitForElementVisible(resourceXpath)
+        .click(resourceXpath)
+        .useCss()
+    },
+    /**
      * Create a folder with the given name
      *
      * @param {string} name to set or null to use default value from dialog
@@ -357,6 +369,10 @@ module.exports = {
     },
     breadcrumb: {
       selector: '#files-breadcrumb li:nth-of-type(2)'
+    },
+    resourceBreadcrumb: {
+      selector: '//div[@id="files-breadcrumb"]//a[contains(text(),"%s")]',
+      locateStrategy: 'xpath'
     },
     filterListButton: {
       selector: '#oc-filter-list-btn'
