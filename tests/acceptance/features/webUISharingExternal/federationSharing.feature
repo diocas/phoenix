@@ -7,6 +7,8 @@ Feature: Federation Sharing - sharing with users on other cloud storages
     Given app "notifications" has been enabled
     And the setting "auto_accept_trusted" of app "federatedfilesharing" has been set to "yes" on remote server
     And the setting "auto_accept_trusted" of app "federatedfilesharing" has been set to "no"
+    And server "%remote_backend_url%" has been added as trusted server
+    And server "%backend_url%" has been added as trusted server in server remote server
     And user "user1" has been created with default attributes on remote server
     And user "user1" has been created with default attributes
     And user "user1" has logged in using the webUI

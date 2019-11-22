@@ -9,6 +9,10 @@ const occHelper = require('../helpers/occHelper')
 
 let initialConfigJsonSettings
 let createdFiles = []
+let initialAppConfigSettings
+const { difference } = require('../helpers/objects')
+let initialSearchMinLength
+const userSettings = require('../helpers/userSettings')
 
 Given('a file with the size of {string} bytes and the name {string} has been created locally', function (size, name) {
   const fullPathOfLocalFile = client.globals.filesForUpload + name
@@ -120,6 +124,27 @@ Given('the administrator has cleared the versions for all users', function () {
     [
       'versions:cleanup'
     ])
+})
+
+const setTrustedServer = function (url) {
+  const params = new URLSearchParams()
+  params.append('url', userSettings.replaceInlineCode(url))
+  return fetch(`${httpHelper.getCurrentBackendUrl()}/ocs/v2.php/apps/testing/api/v1/trustedservers?format=json`,
+    { method: 'POST', headers: httpHelper.createAuthHeader(client.globals.backend_admin_username), params })
+    .then(res => {
+      const dat = httpHelper.checkStatus(res)
+      return dat.text()
+    })
+    .then(json => {
+      console.log(json)
+      httpHelper.checkOCSStatus(json)
+    })
+}
+
+Given('server {string} has been added as trusted server', setTrustedServer)
+
+Given('server {string} has been added as trusted server in server remote server', function (url) {
+  httpHelper.runOnRemoteServer(setTrustedServer, [url])
 })
 
 Before(function (testCase) {
