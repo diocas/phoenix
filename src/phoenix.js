@@ -65,6 +65,10 @@ Vue.use(VueMeta, {
 Vue.component('drag', Drag)
 Vue.component('drop', Drop)
 
+// --- Event Bus ----
+
+Vue.prototype.$bus = new Vue()
+
 // --- Router ----
 
 let apps
