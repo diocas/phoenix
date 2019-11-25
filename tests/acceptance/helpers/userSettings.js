@@ -63,6 +63,7 @@ module.exports = {
     }
   },
   createdUsers: {},
+  createdRemoteUsers: {},
   createdGroups: [],
 
   /**
@@ -73,7 +74,11 @@ module.exports = {
    * @param {string} email
    */
   addUserToCreatedUsersList: function (userId, password, displayname = null, email = null) {
-    this.createdUsers[userId] = { password: password, displayname: displayname, email: email }
+    if (client.globals.default_backend === 'REMOTE') {
+      this.createdRemoteUsers[userId] = { password, displayname, email }
+    } else {
+      this.createdUsers[userId] = { password: password, displayname: displayname, email: email }
+    }
   },
   /**
    *
@@ -192,7 +197,10 @@ module.exports = {
    *
    * @returns {module.exports.createdUsers|{}}
    */
-  getCreatedUsers: function () {
+  getCreatedUsers: function (server = 'LOCAL') {
+    if (server === 'REMOTE') {
+      return this.createdRemoteUsers
+    }
     return this.createdUsers
   },
   /**
@@ -210,13 +218,14 @@ module.exports = {
    */
   replaceInlineCode: function (input) {
     const codes = {
-      '%regular%': 'reg',
-      '%alt1%': 'alt1',
-      '%alt2%': 'alt2',
-      '%alt3%': 'alt3',
-      '%alt4%': 'alt4',
-      '%alt11%': 'alt11',
-      '%remote_backend_url%': client.globals.remote_backend_url
+      '%regular%': regularUserPassword,
+      '%alt1%': alt1UserPassword,
+      '%alt2%': alt2UserPassword,
+      '%alt3%': alt3UserPassword,
+      '%alt4%': alt4UserPassword,
+      '%alt11%': alt4UserPassword,
+      '%remote_backend_url%': client.globals.remote_backend_url,
+      '%backend_url%': client.globals.backend_url
     }
     for (const code in codes) {
       if (input.includes(code)) {

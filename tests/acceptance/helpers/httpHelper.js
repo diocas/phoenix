@@ -73,17 +73,17 @@ exports.changeBackend = function (server) {
  * @param args - the arguments to pass to the function
  */
 exports.runOnRemoteServer = async function (fn, args = []) {
-  const initialBackend = client.globals.default_backend
   this.changeBackend('REMOTE')
-  let errorfound
+  let errorfound, res
   try {
-    await fn(...args)
+    res = await fn(...args)
   } catch (e) {
     errorfound = e
   } finally {
-    client.globals.default_backend = initialBackend
+    client.globals.default_backend = 'LOCAL'
   }
   if (errorfound) {
     throw errorfound
   }
+  return res
 }

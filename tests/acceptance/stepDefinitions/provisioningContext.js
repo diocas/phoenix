@@ -121,11 +121,11 @@ Given('user {string} has been created with default attributes', function (userId
 
 Given('user {string} has been created with default attributes on remote server', function (userId) {
   return httpHelper.runOnRemoteServer(
-    async function () {
-      await deleteUser(userId)
-        .then(() => createDefaultUser(userId))
-        .then(() => initUser(userId))
-    })
+    async function (user) {
+      await deleteUser(user)
+        .then(() => createDefaultUser(user))
+        .then(() => initUser(user))
+    }, [userId])
 })
 
 Given('the quota of user {string} has been set to {string}', function (userId, quota) {
@@ -185,8 +185,14 @@ Given('user {string} has been added to group {string}', function (userId, groupI
 })
 
 After(function () {
-  for (var userId in userSettings.getCreatedUsers()) {
+  const createdUsers = userSettings.getCreatedUsers()
+  const createdRemoteUsers = userSettings.getCreatedUsers('REMOTE')
+
+  for (var userId in createdUsers) {
     deleteUser(userId)
+  }
+  for (userId in createdRemoteUsers) {
+    httpHelper.runOnRemoteServer(deleteUser, [userId])
   }
   userSettings.getCreatedGroups().forEach(function (groupId) {
     deleteGroup(groupId)
