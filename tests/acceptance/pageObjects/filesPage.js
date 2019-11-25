@@ -32,10 +32,10 @@ module.exports = {
      *
      * @param {string} resource
      */
-    navigateToBreadcrumb: async function (resource) {
-      const resourceXpath = util.format(this.elements.resourceBreadcrumb.selector, resource)
-      return this
-        .useXpath()
+    navigateToBreadcrumb: function (resource) {
+      const breadcrumbElement = this.elements.resourceBreadcrumb
+      const resourceXpath = util.format(breadcrumbElement.selector, resource)
+      return this.useStrategy(breadcrumbElement)
         .waitForElementVisible(resourceXpath)
         .click(resourceXpath)
         .useCss()
