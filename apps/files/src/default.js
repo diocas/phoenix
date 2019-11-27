@@ -35,6 +35,7 @@ const appInfo = {
   icon: 'folder',
   isFileEditor: false,
   extensions: [],
+  fileActions: window.phoenixConfig.files.actions,
   fileSideBars: [
     {
       app: 'files-version',
