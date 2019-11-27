@@ -356,8 +356,11 @@ Then('the last uploaded folder should be listed on the webUI', function () {
     .waitForFileVisible(folder)
 })
 
-Then('file/folder {string} should not be listed on the webUI', function (folder) {
-  return client.page.FilesPageElement.filesList().assertElementNotListed(folder)
+Then('file/folder {string} should not be listed on the webUI', async function (folder) {
+  const state = await client.page.FilesPageElement.filesList().isElementListed(folder)
+  return client.assert.ok(
+    !state, `Error: Resource ${folder} is listed on the filesList`
+  )
 })
 
 Then('the deleted elements should not be listed on the webUI', function () {
@@ -441,18 +444,18 @@ Then('the folder should be empty on the webUI', async function () {
   return client.assert.equal(allFileRows.value.length, 0)
 })
 
-const theseResourcesShouldNotBeListed = function (entryList) {
-  entryList.rows().forEach(entry => {
-    client.page.FilesPageElement.filesList().assertElementNotListed(entry[0])
-  })
-  return client
+const theseResourcesShouldNotBeListed = async function (table) {
+  for (const entry of table.rows()) {
+    const state = await client.page.FilesPageElement.filesList().isElementListed(entry[0])
+    assert.ok(!state)
+  }
 }
 
 /**
  * needs a heading line in the table
  */
-Then('these folders/files/resources should not be listed on the webUI', function (entryList) {
-  return theseResourcesShouldNotBeListed(entryList)
+Then('these folders/files/resources should not be listed on the webUI', function (table) {
+  return theseResourcesShouldNotBeListed(table)
 })
 
 /**
@@ -588,16 +591,22 @@ Then('no {string} tab should be available in the details panel', function (tab) 
     .waitForElementNotPresent(tabSelector)
 })
 
-const assertElementsAreListed = function (elements) {
+const assertElementsAreListed = async function (elements) {
   for (const element of elements) {
-    client.page.FilesPageElement.filesList().assertElementListed(element)
+    const state = await client.page.FilesPageElement.filesList().isElementListed(element)
+    assert.ok(
+      state, `Resource ${element} is present in filesList`
+    )
   }
   return client
 }
 
-const assertElementsAreNotListed = function (elements) {
+const assertElementsAreNotListed = async function (elements) {
   for (const element of elements) {
-    client.page.FilesPageElement.filesList().assertElementNotListed(element)
+    const state = await client.page.FilesPageElement.filesList().isElementListed(element)
+    assert.ok(
+      !state, `Resource ${element} is present in filesList`
+    )
   }
   return client
 }
@@ -644,9 +653,12 @@ Given('the user has created folder {string}', function (fileName) {
 })
 Given('user {string} has created folder {string}', webdav.createFolder)
 
-Then('file/folder {string} should not be listed in shared-with-others page on the webUI', function (filename) {
+Then('file/folder {string} should not be listed in shared-with-others page on the webUI', async function (filename) {
   client.page.sharedWithOthersPage().navigateAndWaitTillLoaded()
-  return client.page.FilesPageElement.filesList().assertElementNotListed(filename)
+  const state = await client.page.FilesPageElement.filesList().isElementListed(filename)
+  assert.ok(
+    !state, `Error: Resource ${filename} is present on the shared-with-others page on the webUI`
+  )
 })
 
 Then('file/folder {string} should be listed in shared-with-others page on the webUI', function (filename) {
@@ -707,16 +719,18 @@ When('the user deletes the file {string} from the deleted files list', function 
   return client.page.FilesPageElement.filesList().deleteImmediately(element)
 })
 
-Then('it should not be possible to delete file/folder {string} using the webUI', function (resource) {
-  return client.page.FilesPageElement
+Then('it should not be possible to delete file/folder {string} using the webUI', async function (resource) {
+  const state = await client.page.FilesPageElement
     .filesList()
-    .assertActionDisabled('delete', resource)
+    .getActionDisabledAttr('delete', resource)
+  assert.ok(state, `expected property disabled of ${resource} to be 'true' but found ${state}`)
 })
 
-Then('it should not be possible to rename file/folder {string} using the webUI', function (resource) {
-  return client.page.FilesPageElement
+Then('it should not be possible to rename file/folder {string} using the webUI', async function (resource) {
+  const state = await client.page.FilesPageElement
     .filesList()
-    .assertActionDisabled('rename', resource)
+    .getActionDisabledAttr('rename', resource)
+  assert.ok(state, `expected property disabled of ${resource} to be 'true' but found ${state}`)
 })
 
 When('the user uploads overwriting file {string} using the webUI', function (file) {
@@ -749,14 +763,20 @@ When('user {string} has renamed the following file', function (user, table) {
   return webdav.move(user, fromName, toName)
 })
 
-Then('the following file should be listed on the webUI', function (table) {
+Then('the following file should be listed on the webUI', async function (table) {
   const name = table.hashes().map(data => data['name-parts']).join('')
-  return client.page.FilesPageElement.filesList().assertElementListed(name)
+  const state = await client.page.FilesPageElement.filesList().isElementListed(name)
+  return assert.strictEqual(
+    state, true, `Element ${name} is not present on the filesList!`
+  )
 })
 
-Then('the following file should not be listed on the webUI', function (table) {
+Then('the following file should not be listed on the webUI', async function (table) {
   const name = table.hashes().map(data => data['name-parts']).join('')
-  return client.page.FilesPageElement.filesList().assertElementNotListed(name)
+  const state = await client.page.FilesPageElement.filesList().isElementListed(name)
+  return assert.ok(
+    !state, `Element ${name} is present on the filesList!`
+  )
 })
 
 Then('the user deletes the following file using the webUI', function (table) {
