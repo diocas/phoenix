@@ -814,7 +814,7 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/debug@^4.1.4":
+"@types/debug@^4.1.5":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
   integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
@@ -2613,7 +2613,7 @@ cssesc@^3.0.0:
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
 
-cucumber-expressions@^8.0.1:
+cucumber-expressions@^8.1.0:
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/cucumber-expressions/-/cucumber-expressions-8.2.1.tgz#e250063993350df106a8664c90a414814f555e2d"
   integrity sha512-6n5JKbAzXfIiwyu2UyUcOmO83QmuSme25+Dw2taK6VNOybOfRkh4yNMA9VtuAJHOmsX3/8l0OVjTbE8lHnjOHA==
@@ -2621,7 +2621,7 @@ cucumber-expressions@^8.0.1:
     becke-ch--regex--s0-0-v1--base--pl--lib "^1.4.0"
     xregexp "^4.2.4"
 
-cucumber-pretty@^6.0.0:
+cucumber-pretty@>=6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/cucumber-pretty/-/cucumber-pretty-6.0.0.tgz#1331deae9663020f6835d60c0aa3a84637baaa4d"
   integrity sha512-ddx/VInPVKFB7N86QujgLivihJhuzexKwExMuFaUjSlEs5zVVqBgaf55f88h97VafXTWX+ZAcxTUwMBS4mYj/g==
@@ -2635,17 +2635,17 @@ cucumber-tag-expressions@^2.0.2:
   resolved "https://registry.yarnpkg.com/cucumber-tag-expressions/-/cucumber-tag-expressions-2.0.2.tgz#aac27aae3690818ec15235bd056282dad8a2d2b8"
   integrity sha512-DohmT4X641KX/sb96bdb7J2kXNcQBPrYmf3Oc5kiHCLfzFMWx/o2kB4JvjvQPZnYuA9lRt6pqtArM5gvUn4uzw==
 
-cucumber@6.0.2:
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/cucumber/-/cucumber-6.0.2.tgz#3c4fbf1f76e60ddee79ab58f137a62c897a4d7f0"
-  integrity sha512-yEwPYGvgS2KG6ODdUXQwWcxjyr/l31dmpGJsZSkJIXNLNNmieKVefTpf8zLj6+0V2TCPwkmUZt4+OIXv97duEw==
+cucumber@>=6.0.5:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/cucumber/-/cucumber-6.0.5.tgz#cdc752ad18b551bcf7bc92774c925302f4408714"
+  integrity sha512-x+W9Fwk6TvcapQsYMxwFU5AsQJDOIJVGrPKmH15OC7jzb9/Dk7Hb0ZAyw4WcpaDcUDRc8bi2k2yJejDp5eTRlg==
   dependencies:
     assertion-error-formatter "^3.0.0"
     bluebird "^3.4.1"
     cli-table3 "^0.5.1"
     colors "^1.1.2"
     commander "^3.0.1"
-    cucumber-expressions "^8.0.1"
+    cucumber-expressions "^8.1.0"
     cucumber-tag-expressions "^2.0.2"
     duration "^0.2.1"
     escape-string-regexp "^2.0.0"
@@ -2703,9 +2703,9 @@ date-fns@^1.27.2:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
-"davclient.js@git+https://github.com/owncloud/davclient.js.git":
+"davclient.js@https://github.com/owncloud/davclient.js.git":
   version "0.2.1"
-  resolved "git+https://github.com/owncloud/davclient.js.git#1ab200d099a3c2cd2ef919c3a56353ce26865994"
+  resolved "https://github.com/owncloud/davclient.js.git#1ab200d099a3c2cd2ef919c3a56353ce26865994"
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -6145,15 +6145,15 @@ nice-try@^1.0.4:
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-nightwatch-api@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/nightwatch-api/-/nightwatch-api-2.3.0.tgz#3120f807d6a9a4cbb53162ce96d30d6e1e7ca2e1"
-  integrity sha512-zPRm1ViLdql6fDA14+DLMoHJOa+xeO9WOdD4qzraUaZG7uX0TKMQ/apLKDMc8esrBdJAtcrCAXkTlb95rl63Mw==
+nightwatch-api@>=3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/nightwatch-api/-/nightwatch-api-3.0.1.tgz#10961a20b8e53f9fd7d0597643a009151d4a2ece"
+  integrity sha512-5xrlyDL17zJygXHa5Kib/0T8zZYqPYMpqHeHhyo+TWaWoR4rVtjcy3Cjblvo+0DuvhHk6wVKTLha1UgdDJpFPA==
   dependencies:
-    "@types/debug" "^4.1.4"
+    "@types/debug" "^4.1.5"
     debug "^4.1.1"
 
-nightwatch@^1.2.2:
+nightwatch@>=1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/nightwatch/-/nightwatch-1.3.1.tgz#d09067d8999a10a9e39297eca988e6fe3a970ec6"
   integrity sha512-rnzbcSGOvyaMwXrZ/ME+1NHn7dLmLigB9cYtP7QvWgoAL6P/ZwCXKWjkxJeyp34CD0sJfhQ/wvvBOELaeQwF1w==
