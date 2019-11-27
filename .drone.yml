@@ -14,13 +14,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: lint-test
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn run lint
 
@@ -50,13 +50,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -75,7 +75,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -83,7 +83,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -106,14 +106,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -124,7 +124,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -190,7 +190,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -199,7 +199,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -258,13 +258,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -283,7 +283,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -291,7 +291,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -314,14 +314,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -332,7 +332,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -398,7 +398,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -407,7 +407,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -466,13 +466,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -491,7 +491,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -499,7 +499,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -522,14 +522,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -540,7 +540,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -606,7 +606,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -615,7 +615,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -674,13 +674,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -699,7 +699,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -707,7 +707,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -730,14 +730,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -748,7 +748,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -814,7 +814,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -823,7 +823,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -882,13 +882,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -907,7 +907,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -915,7 +915,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -938,14 +938,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -956,7 +956,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -1022,7 +1022,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -1031,7 +1031,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -1090,13 +1090,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -1115,7 +1115,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -1123,7 +1123,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -1146,14 +1146,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -1164,7 +1164,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -1230,7 +1230,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -1239,7 +1239,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -1298,13 +1298,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -1323,7 +1323,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -1331,7 +1331,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -1354,14 +1354,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -1372,7 +1372,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -1438,7 +1438,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -1447,7 +1447,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -1506,13 +1506,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -1531,7 +1531,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -1539,7 +1539,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -1562,14 +1562,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -1580,7 +1580,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -1646,7 +1646,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -1655,7 +1655,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -1714,13 +1714,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -1739,7 +1739,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -1747,7 +1747,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -1770,14 +1770,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -1788,7 +1788,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -1854,7 +1854,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -1863,7 +1863,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -1922,13 +1922,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -1947,7 +1947,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -1955,7 +1955,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -1978,14 +1978,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -1996,7 +1996,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -2062,7 +2062,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -2071,7 +2071,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -2130,13 +2130,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -2155,7 +2155,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -2163,7 +2163,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -2186,14 +2186,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -2204,7 +2204,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -2270,7 +2270,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -2279,7 +2279,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -2338,13 +2338,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -2363,7 +2363,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -2371,7 +2371,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -2394,14 +2394,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -2412,7 +2412,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -2478,7 +2478,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -2487,7 +2487,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -2546,13 +2546,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -2571,7 +2571,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -2579,7 +2579,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -2602,14 +2602,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -2620,7 +2620,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -2686,7 +2686,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -2695,7 +2695,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -2754,13 +2754,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -2779,7 +2779,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -2787,7 +2787,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -2810,14 +2810,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -2828,7 +2828,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -2894,7 +2894,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -2903,7 +2903,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -2962,13 +2962,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -2987,7 +2987,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -2995,7 +2995,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -3018,14 +3018,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -3036,7 +3036,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -3102,7 +3102,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -3111,7 +3111,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -3170,13 +3170,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -3195,7 +3195,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -3203,7 +3203,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -3226,14 +3226,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -3244,7 +3244,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -3310,7 +3310,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -3319,7 +3319,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -3378,13 +3378,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -3403,7 +3403,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -3411,7 +3411,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -3434,14 +3434,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -3452,7 +3452,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -3518,7 +3518,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -3527,7 +3527,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -3586,13 +3586,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -3611,7 +3611,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -3619,7 +3619,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -3642,14 +3642,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -3660,7 +3660,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -3726,7 +3726,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -3735,7 +3735,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -3794,13 +3794,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -3819,7 +3819,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -3827,7 +3827,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -3850,14 +3850,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -3868,7 +3868,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -3934,7 +3934,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -3943,7 +3943,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -4002,13 +4002,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -4027,7 +4027,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -4035,7 +4035,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -4058,14 +4058,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -4076,7 +4076,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -4142,7 +4142,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -4151,7 +4151,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -4210,13 +4210,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -4235,7 +4235,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -4243,7 +4243,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -4266,14 +4266,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -4284,7 +4284,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -4350,7 +4350,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -4359,7 +4359,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -4418,13 +4418,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -4443,7 +4443,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -4451,7 +4451,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -4474,14 +4474,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -4492,7 +4492,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -4558,7 +4558,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -4567,7 +4567,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -4626,13 +4626,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -4651,7 +4651,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -4659,7 +4659,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -4682,14 +4682,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -4700,7 +4700,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -4766,7 +4766,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -4775,7 +4775,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -4834,13 +4834,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -4859,7 +4859,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -4867,7 +4867,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -4890,14 +4890,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -4908,7 +4908,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -4974,7 +4974,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -4983,7 +4983,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -5042,13 +5042,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn dist
   - cp tests/drone/config.json dist/config.json
@@ -5067,7 +5067,7 @@ steps:
 
 - name: clone-oauth
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - git clone -b master https://github.com/owncloud/oauth2.git /var/www/owncloud/apps/oauth2
   - cd /var/www/owncloud/apps/oauth2
@@ -5075,7 +5075,7 @@ steps:
 
 - name: setup-server-phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - php occ a:e testing
@@ -5098,14 +5098,14 @@ steps:
 
 - name: fix-permissions
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/
   - chown www-data * -R
 
 - name: copy-files-for-upload
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - ls -la /filesForUpload
   - cp -a /var/www/owncloud/phoenix/tests/acceptance/filesForUpload/. /filesForUpload
@@ -5116,7 +5116,7 @@ steps:
 
 - name: webui-acceptance-tests
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - curl http://phoenix/oidc-callback.html
@@ -5135,7 +5135,7 @@ steps:
 services:
 - name: phoenix
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - mkdir dist
   - /usr/local/bin/apachectl -e debug -D FOREGROUND
@@ -5144,7 +5144,7 @@ services:
 
 - name: owncloud
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   command:
   - /usr/local/bin/apachectl
   - -e
@@ -5376,13 +5376,13 @@ workspace:
 steps:
 - name: npm-install
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - yarn install
 
 - name: build-release
   pull: always
-  image: owncloudci/php:7.1
+  image: arturneumann/owncloud-ci-php:7.1
   commands:
   - cd /var/www/owncloud/phoenix
   - make -f Makefile.release dist
