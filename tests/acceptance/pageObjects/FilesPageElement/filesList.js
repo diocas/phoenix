@@ -453,15 +453,12 @@ module.exports = {
         .waitForElementVisible('@filesTable')
         .useXpath()
         .waitForElementNotPresent('@loadingIndicator')
-      await this
-        .waitForElementVisible({
-          selector: this.getFileRowSelectorByFileName(element),
-          abortOnFailure: false
-        }, 1000, (result) => {
-          if (!result.value) {
-            isListed = false
-          }
-        })
+        .api.elements(
+          'xpath',
+          this.getFileRowSelectorByFileName(element),
+          (result) => {
+            isListed = result.value.length > 0
+          })
         .useCss()
       return isListed
     },
@@ -478,15 +475,12 @@ module.exports = {
       let isPresent = true
       await this
         .closeSidebar(100)
-        .waitForElementNotPresent({
-          locateStrategy: this.elements.shareButtonInFileRow.locateStrategy,
-          selector: resourceShareButtonXpath,
-          abortOnFailure: false
-        }, 1000, (result) => {
-          if (!result.value.length) {
-            isPresent = false
-          }
-        })
+        .api.elements(
+          this.elements.shareButtonInFileRow.locateStrategy,
+          resourceShareButtonXpath,
+          (result) => {
+            isPresent = result.value.length > 0
+          })
       return isPresent
     },
     /**
@@ -503,16 +497,13 @@ module.exports = {
         .useXpath()
         .click(rowSelector)
         .waitForElementVisible('@sidebar')
-        .waitForElementVisible({
-          selector: tabSelector,
-          abortOnFailure: false
-        }, 1000, (result) => {
-          if (!result.value) {
-            isPresent = false
-          }
-        })
+        .api.elements(
+          this.elements.sidebarLinksTab.locateStrategy,
+          tabSelector,
+          (result) => {
+            isPresent = result.value.length > 0
+          })
         .useCss()
-        .closeSidebar(100)
       return isPresent
     },
     /**
@@ -520,8 +511,8 @@ module.exports = {
      * @param {string} fileName
      * @returns {Promise<void>}
      */
-    isSidebarLinksTabPresent: async function (fileName) {
-      await this.isSidebarTabPresent(
+    isSidebarLinksTabPresent: function (fileName) {
+      return this.isSidebarTabPresent(
         this.getFileRowSelectorByFileName(fileName),
         this.elements.sidebarLinksTab.selector
       )
@@ -531,8 +522,8 @@ module.exports = {
      * @param {string} fileName
      * @returns {Promise<void>}
      */
-    isSidebarCollaboratorsTabPresent: async function (fileName) {
-      await this.isSidebarTabPresent(
+    isSidebarCollaboratorsTabPresent: function (fileName) {
+      return this.isSidebarTabPresent(
         this.getFileRowSelectorByFileName(fileName),
         this.elements.sidebarCollaboratorsTab.selector
       )

@@ -447,7 +447,7 @@ Then('the folder should be empty on the webUI', async function () {
 const theseResourcesShouldNotBeListed = async function (table) {
   for (const entry of table.rows()) {
     const state = await client.page.FilesPageElement.filesList().isElementListed(entry[0])
-    assert.ok(!state)
+    assert.ok(!state, `Expected resource '${entry[0]}' to be 'not present' but found 'present'`)
   }
 }
 
@@ -595,7 +595,7 @@ const assertElementsAreListed = async function (elements) {
   for (const element of elements) {
     const state = await client.page.FilesPageElement.filesList().isElementListed(element)
     assert.ok(
-      state, `Resource ${element} is present in filesList`
+      state, `Expected resource '${element}' to be 'present' but found 'not present'`
     )
   }
   return client
@@ -605,7 +605,7 @@ const assertElementsAreNotListed = async function (elements) {
   for (const element of elements) {
     const state = await client.page.FilesPageElement.filesList().isElementListed(element)
     assert.ok(
-      !state, `Resource ${element} is present in filesList`
+      !state, `Expected resource '${element}' to be 'not present' but found 'present'`
     )
   }
   return client
