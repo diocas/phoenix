@@ -442,9 +442,9 @@ module.exports = {
         this.elements.fileLinkInFileRow.selector
     },
     /**
-     * function checks for the element whether listed or not on the filesList
-     * @param {string} element Name of the file/folder/resource
+     * checks whether the element is listed or not on the filesList
      *
+     * @param {string} element Name of the file/folder/resource
      * @returns {boolean}
      */
     isElementListed: async function (element) {
@@ -463,7 +463,7 @@ module.exports = {
       return isListed
     },
     /**
-     * function checks whether sharing button of provided file-row is present
+     * checks whether sharing button of given file-row is present
      *
      * @param {string} fileName
      * @returns {Promise<boolean>}
@@ -484,10 +484,10 @@ module.exports = {
       return isPresent
     },
     /**
-     * function checks for the provided tabs on the files-page-sidebar are present or not
+     * checks if the given tabs are present on the files-page-sidebar
      *
-     * @param {string} rowSelector x-path for provided resource row selector
-     * @param {string} tabSelector x-path for provided tab
+     * @param {string} rowSelector xpath for given resource row selector
+     * @param {string} tabSelector xpath for given tab
      * @returns {Promise<boolean>}
      */
     isSidebarTabPresent: async function (rowSelector, tabSelector) {
@@ -498,7 +498,7 @@ module.exports = {
         .click(rowSelector)
         .waitForElementVisible('@sidebar')
         .api.elements(
-          this.elements.sidebarLinksTab.locateStrategy,
+          'xpath',
           tabSelector,
           (result) => {
             isPresent = result.value.length > 0
@@ -509,7 +509,7 @@ module.exports = {
     /**
      *
      * @param {string} fileName
-     * @returns {Promise<void>}
+     * @returns {Promise<boolean>}
      */
     isSidebarLinksTabPresent: function (fileName) {
       return this.isSidebarTabPresent(
@@ -520,7 +520,7 @@ module.exports = {
     /**
      *
      * @param {string} fileName
-     * @returns {Promise<void>}
+     * @returns {Promise<boolean>}
      */
     isSidebarCollaboratorsTabPresent: function (fileName) {
       return this.isSidebarTabPresent(
@@ -529,7 +529,7 @@ module.exports = {
       )
     },
     /**
-     * function return the disabled state of provided action
+     * returns the disabled state of given action
      *
      * @param {string} action
      * @param {string} fileName
