@@ -172,6 +172,7 @@ module.exports = {
         .click('@filterListButton')
         .waitForElementVisible('@hiddenFilesLabel')
         .click('@hiddenFilesCheckbox')
+        .click('@filterListButton')
     },
     /**
      *
@@ -313,9 +314,11 @@ module.exports = {
     },
     enterFilterInput: function (input) {
       return this.initAjaxCounters()
+        .click('@filterListButton')
         .waitForElementVisible('@filterTextField')
         .setValue('@filterTextField', input)
         .waitForOutstandingAjaxCalls()
+        .click('@filterListButton')
     }
   },
   elements: {

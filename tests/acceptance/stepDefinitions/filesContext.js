@@ -9,19 +9,25 @@ const path = require('../helpers/path')
 let deletedElements
 let timeOfLastDeleteOperation = Date.now()
 let timeOfLastUploadOperation = Date.now()
-const { download } = require('../helpers/webdavHelper')
-const { runOcc } = require('../helpers/occHelper')
-const fs = require('fs')
+const convert = require('xml-js')
+const { filename } = require('../helpers/path')
+const { download, propfind } = require('../helpers/webdavHelper')
+
+const getAllFilesFolders = function () {
+  const user = client.globals.currentUser
+  return propfind(`/files/${user}`, user, [])
+    .then(str => {
+      const data = convert.xml2js(str, { compact: true })['d:multistatus']['d:response']
+      return data.map(elements =>
+        filename(
+          elements['d:href']._text)
+      )
+    })
+}
 
 const getFilesFoldersMatchingPattern = async function (pattern) {
-  const filesFolders = []
-  const skeletonDirectory = await runOcc(['config:system:get', 'skeletondirectory'])
-    .then(resp => resp.ocs.data.stdOut.trim())
-  await fs.readdirSync(skeletonDirectory).forEach(file => {
-    filesFolders.push(file)
-  })
-  const elementsIncludingPattern = filesFolders.filter(elements => elements.toLowerCase().includes(pattern))
-  return elementsIncludingPattern
+  const filesFolders = await getAllFilesFolders()
+  return filesFolders.filter(elements => elements.toLowerCase().includes(pattern))
 }
 
 const getAllFilesListed = async function () {
@@ -820,6 +826,15 @@ Then('all the files and folders containing pattern {string} in their name should
   const filesFoldersNotFound = _.difference(filesFoldersMatchingPattern, allListedFilesFolders)
   return assert.strictEqual(filesFoldersNotFound.length, 0, 'These files ' + filesFoldersNotFound +
   ' were not listed but were expected to be')
+})
+
+Then('all the files and folders containing pattern {string} in their name should be listed in files list on the webUI except the hidden elements', async function (pattern) {
+  const filesFoldersMatchingPattern = await getFilesFoldersMatchingPattern(pattern)
+  const allListedFilesFolders = await getAllFilesListed()
+  const notHiddenElements = filesFoldersMatchingPattern.filter(elem => !elem.startsWith('.'))
+  const filesFoldersNotFound = _.difference(notHiddenElements, allListedFilesFolders)
+  return assert.strictEqual(filesFoldersNotFound.length, 0, 'These files ' + filesFoldersNotFound +
+    ' were not listed but were expected to be')
 })
 
 Then('only the files and folders containing pattern {string} in their name should be listed in files list on the webUI', async function (pattern) {
