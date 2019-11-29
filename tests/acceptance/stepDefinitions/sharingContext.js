@@ -59,7 +59,7 @@ const userSharesFileOrFolderWithGroup = function (file, sharee, role) {
 }
 
 Given('user {string} from remote server has shared {string} with user {string} from local server', function (sharer, file, receiver) {
-  receiver = `${receiver}@${httpHelper.getBackendUrl('LOCAL').replace(/(^\w+:|^)\/\//, '')}/`
+  receiver = `${receiver}@${httpHelper.getBackendUrl('LOCAL')}/`
   return httpHelper.runOnRemoteServer(shareFileFolder, [file, sharer, receiver, SHARE_TYPES.federated_cloud_share])
 })
 
