@@ -10,6 +10,30 @@ let deletedElements
 let timeOfLastDeleteOperation = Date.now()
 let timeOfLastUploadOperation = Date.now()
 const { download } = require('../helpers/webdavHelper')
+const { runOcc } = require('../helpers/occHelper')
+const fs = require('fs')
+
+const getFilesFoldersMatchingPattern = async function (pattern) {
+  const filesFolders = []
+  const skeletonDirectory = await runOcc(['config:system:get', 'skeletondirectory'])
+    .then(resp => resp.ocs.data.stdOut.trim())
+  await fs.readdirSync(skeletonDirectory).forEach(file => {
+    filesFolders.push(file)
+  })
+  const elementsIncludingPattern = filesFolders.filter(elements => elements.toLowerCase().includes(pattern))
+  return elementsIncludingPattern
+}
+
+const getAllFilesListed = async function () {
+  const allFileRows = await client.page.FilesPageElement.filesList().getListedFilesFolders()
+  const allFilesListed = []
+  for (const elemId of allFileRows.value) {
+    await client.elementIdText(elemId.ELEMENT, function (result) {
+      allFilesListed.push(result.value)
+    })
+  }
+  return allFilesListed
+}
 
 Before(() => {
   deletedElements = []
@@ -153,6 +177,10 @@ Given('the user has opened the share dialog for file/folder {string}', function 
 
 When('the user enables the setting to view hidden files/folders on the webUI', function () {
   return client.page.filesPage().showHiddenFiles()
+})
+
+When('the user enters the keyword {string} on the filter text-field', function (input) {
+  return client.page.filesPage().enterFilterInput(input)
 })
 
 When('the user deletes file/folder {string} using the webUI', function (element) {
@@ -784,4 +812,20 @@ Then('the page should be empty', async function () {
 
 When('the user downloads file/folder {string} using the webUI', function (file) {
   return client.page.FilesPageElement.filesList().downloadFile(file)
+})
+
+Then('all the files and folders containing pattern {string} in their name should be listed in files list on the webUI', async function (pattern) {
+  const filesFoldersMatchingPattern = await getFilesFoldersMatchingPattern(pattern)
+  const allListedFilesFolders = await getAllFilesListed()
+  const filesFoldersNotFound = _.difference(filesFoldersMatchingPattern, allListedFilesFolders)
+  return assert.strictEqual(filesFoldersNotFound.length, 0, 'These files ' + filesFoldersNotFound +
+  ' were not listed but were expected to be')
+})
+
+Then('only the files and folders containing pattern {string} in their name should be listed in files list on the webUI', async function (pattern) {
+  const filesFoldersMatchingPattern = await getFilesFoldersMatchingPattern(pattern)
+  const allListedFilesFolders = await getAllFilesListed()
+  const filesFoldersNotFound = _.difference(allListedFilesFolders, filesFoldersMatchingPattern)
+  return assert.strictEqual(filesFoldersNotFound.length, 0, 'These files ' + filesFoldersNotFound +
+    ' were listed but were not expected to be')
 })

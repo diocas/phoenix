@@ -526,6 +526,19 @@ module.exports = {
         })
       })
     },
+    getListedFilesFolders: async function () {
+      this
+        .waitForElementNotPresent('@filesListProgressBar')
+        .waitForElementVisible({
+          selector: '@allFiles',
+          abortOnFailure: false
+        })
+      return new Promise((resolve, reject) => {
+        this.api.elements('css selector', this.elements.allFiles, function (result) {
+          resolve(result)
+        })
+      })
+    },
     copyPrivateLink: function () {
       return this
         .waitForElementVisible('@sidebar')
@@ -560,6 +573,9 @@ module.exports = {
     },
     fileRows: {
       selector: 'tr.file-row'
+    },
+    allFiles: {
+      selector: 'span.oc-file-name'
     },
     loadingIndicator: {
       selector: '//*[contains(@class, "oc-loader")]',

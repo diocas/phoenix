@@ -310,6 +310,12 @@ module.exports = {
       return this
         .waitForElementVisible('@restorePreviousVersion')
         .click('@restorePreviousVersion')
+    },
+    enterFilterInput: function (input) {
+      return this.initAjaxCounters()
+        .waitForElementVisible('@filterTextField')
+        .setValue('@filterTextField', input)
+        .waitForOutstandingAjaxCalls()
     }
   },
   elements: {
@@ -450,6 +456,9 @@ module.exports = {
     restorePreviousVersion: {
       selector: '(//div[contains(@id,"oc-file-versions")]//tbody/tr[@class="file-row"])[1]//button[1]',
       locateStrategy: 'xpath'
+    },
+    filterTextField: {
+      selector: '#oc-filter-search .oc-search-input'
     }
   }
 }

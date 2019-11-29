@@ -100,3 +100,10 @@ Feature: Filter files/folders
       | desktopapp.png             |
       | testimagelarge.svg         |
 
+  Scenario: user filters files using keyword when the files filter, folders filter, and hidden filter are enabled
+    When the user enables file filter using the webUI
+    And the user enables folder filter using the webUI
+    And the user enables the setting to view hidden files on the webUI
+    When the user enters the keyword "simple" on the filter text-field
+    Then all the files and folders containing pattern "simple" in their name should be listed in files list on the webUI
+    But only the files and folders containing pattern "simple" in their name should be listed in files list on the webUI
